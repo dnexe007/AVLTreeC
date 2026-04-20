@@ -1,0 +1,21 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#include "tree.h"
+
+
+
+int main() {
+	char buffer[256];
+	Tree* tree = NewTree();
+
+	for(;;)
+	{
+		printf("enter command: ");
+		fgets(buffer, 255, stdin);
+
+		ExecuteCommand(tree, buffer);
+	}
+
+	return 0;
+}
