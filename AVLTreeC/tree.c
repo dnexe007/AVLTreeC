@@ -60,7 +60,7 @@ void PrintTree(Tree* tree) {
 
 void ExecuteCommand(Tree* tree, const char* input) {
 	int command;
-	char key[11];
+	char key[7];
 	float number;
 	int status;
 
@@ -72,7 +72,7 @@ void ExecuteCommand(Tree* tree, const char* input) {
 
 	if (command == 1)
 	{
-		if (sscanf(input, "%d %9s %f", &command, key, &number) != 3)
+		if (sscanf(input, "%d %6s %f", &command, key, &number) != 3)
 		{
 			printf("Parsing error\n");
 			return;
@@ -83,7 +83,7 @@ void ExecuteCommand(Tree* tree, const char* input) {
 
 	else if (command == 2)
 	{
-		if (sscanf(input, "%d %9s", &command, key) != 2)
+		if (sscanf(input, "%d %6s", &command, key) != 2)
 		{
 			printf("Parsing error\n");
 			return;
