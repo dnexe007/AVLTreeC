@@ -11,7 +11,9 @@
 1. В Visual studio открыть developer prompt (комбинация CTRL + \`)
 2. Переместиться в подпапку - `cd AVLTreeC`
 3. Запуск программы - `nmake run`
-4. Запуск тестов - `nmake test`
+4. запуск с чтением команд из файла - `nmake run ARGS="commands.txt"`
+5. запуск с чтением команд из файла и записью вывода в другой файл - `nmake run ARGS="commands.txt output.txt"`
+6. Запуск тестов - `nmake test`
 
 ## Поддерживаемые операции
 1. добавление элемента: `add [key] [float number]`
