@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #include "tree.h"
 
 static void PrintNodes(Node* node, int level) {
@@ -37,7 +39,7 @@ Tree* NewTree() {
 	Tree* newTree = (Tree*)malloc(sizeof(Tree));
 	if (newTree == NULL)
 	{
-		printf("Meory allocation error for Tree\n");
+		printf("memory allocation error for Tree\n");
 		return NULL;
 	}
 	newTree->root = NULL;
@@ -52,38 +54,38 @@ float SearchInTree(Tree* tree, const char* key, int* status) {
 void PrintTree(Tree* tree) {
 	if (tree->root == NULL)
 	{
+		printf("tree is empty\n");
 		return;
-		printf("Tree is empty\n");
 	}
 	PrintNodes(tree->root, 0);
 }
 
 void ExecuteCommand(Tree* tree, const char* input) {
-	int command;
+	char command[11];
 	char key[7];
 	float number;
 	int status;
 
-	if (sscanf(input, "%d", &command) == 0)
+	if (sscanf(input, "%10s", command) == 0)
 	{
-		printf("Parsing error\n");
+		printf("parsing error\n");
 		return;
 	}
 
-	if (command == 1)
+	if (strcmp(command, "add") == 0)
 	{
-		if (sscanf(input, "%d %6s %f", &command, key, &number) != 3)
+		if (sscanf(input, "%10s %6s %f", command, key, &number) != 3)
 		{
-			printf("Parsing error\n");
+			printf("parsing error\n");
 			return;
 		}
 		AddToTree(tree, key, number, &status);
 		printf("%s\n", status == 0 ? "element added" : "can't add duplicate");
 	}
 
-	else if (command == 2)
+	else if (strcmp(command, "remove") == 0)
 	{
-		if (sscanf(input, "%d %6s", &command, key) != 2)
+		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
 			printf("Parsing error\n");
 			return;
@@ -92,12 +94,12 @@ void ExecuteCommand(Tree* tree, const char* input) {
 		printf("%s\n", status == 0 ? "element deleted" : "404 :(");
 	}
 
-	else if (command == 3)
+	else if (strcmp(command, "print") == 0)
 		PrintTree(tree);
 
-	else if (command == 4)
+	else if (strcmp(command, "search") == 0)
 	{
-		if (sscanf(input, "%d %6s", &command, key) != 2)
+		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
 			printf("Parsing error\n");
 			return;
@@ -110,13 +112,23 @@ void ExecuteCommand(Tree* tree, const char* input) {
 		else printf("404 :(\n");
 	}
 
-	else if (command == 0)
+	else if (strcmp(command, "exit") == 0)
 	{
 		DestroyTree(tree);
 		exit(0);
 	}
+	
+	else if (strcmp(command, "help") == 0)
+	{
+		printf("avaliable commands:\n");
+		printf("    add [key] [float number]\n");
+		printf("    remove [key]\n");
+		printf("    print\n");
+		printf("    serach [key]\n");
+		printf("    exit\n");
+	}
 
 	else
-		printf("Unknown command\n");
+		printf("unknown command\n");
 }
 

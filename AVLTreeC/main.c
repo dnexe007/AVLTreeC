@@ -9,6 +9,7 @@ int main() {
 	char buffer[256];
 	Tree* tree = NewTree();
 
+	printf("enter \"help\" to see avaliable commands\n");
 	for(;;)
 	{
 		printf("enter command: ");
