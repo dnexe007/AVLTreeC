@@ -42,4 +42,7 @@
   <ItemGroup>
     <None Include="makefile" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="commands.txt" />
+  </ItemGroup>
 </Project>

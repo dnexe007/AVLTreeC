@@ -19,8 +19,8 @@ Tree* DestroyTree(Tree* tree);
 
 Tree* NewTree();
 
-void PrintTree(Tree* tree);
+void PrintTree(Tree* tree, FILE* stream);
 
-int ExecuteCommand(Tree* tree, const char* command);
+int ExecuteCommand(Tree* tree, const char* command, FILE* stream);
 
 #endif

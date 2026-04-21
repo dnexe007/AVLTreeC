@@ -1,0 +1,28 @@
+add node01 10.0
+add node02 20.0
+add node03 30.0
+add node04 40.0
+add node05 50.0
+add node06 60.0
+add node07 70.0
+add node08 80.0
+add node09 90.0
+add node10 100.0
+add node11 110.0
+add node12 120.0
+add node13 130.0
+add node14 140.0
+add node15 150.0
+add node16 160.0
+add node17 170.0
+add node18 180.0
+add node19 190.0
+add node20 200.0
+add node21 210.0
+add node22 220.0
+add node23 230.0
+remove node05
+remove node10
+remove node15
+print
+exit

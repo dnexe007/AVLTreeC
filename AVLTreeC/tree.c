@@ -6,13 +6,13 @@
 
 #include "tree.h"
 
-static void PrintNodes(Node* node, int level) {
+static void PrintNodes(Node* node, int level, FILE* stream) {
 	if (node == NULL) return;
-	PrintNodes(node->right, level + 1);
+	PrintNodes(node->right, level + 1, stream);
 	for (int i = 0; i < level; i++)
-		printf("\t");
-	printf("Node(key = %s; number = %f)\n", node->data.key, node->data.number);
-	PrintNodes(node->left, level + 1);
+		fprintf(stream, "\t");
+	fprintf(stream, "Node(key = %s; number = %f)\n", node->data.key, node->data.number);
+	PrintNodes(node->left, level + 1, stream);
 }
 
 void AddToTree(Tree* tree, const char* key, float number, int* status) {
@@ -51,16 +51,16 @@ float SearchInTree(Tree* tree, const char* key, int* status) {
 	return FindChild(tree->root, key, status);
 }
 
-void PrintTree(Tree* tree) {
+void PrintTree(Tree* tree, FILE* stream) {
 	if (tree->root == NULL)
 	{
-		printf("tree is empty\n");
+		fprintf(stream, "tree is empty\n");
 		return;
 	}
-	PrintNodes(tree->root, 0);
+	PrintNodes(tree->root, 0, stream);
 }
 
-int ExecuteCommand(Tree* tree, const char* input) {
+int ExecuteCommand(Tree* tree, const char* input, FILE* stream) {
 	char command[11];
 	char key[7];
 	float number;
@@ -68,7 +68,7 @@ int ExecuteCommand(Tree* tree, const char* input) {
 
 	if (sscanf(input, "%10s", command) == 0)
 	{
-		printf("parsing error\n");
+		fprintf(stream, "parsing error\n");
 		return 0;
 	}
 
@@ -76,42 +76,42 @@ int ExecuteCommand(Tree* tree, const char* input) {
 	{
 		if (sscanf(input, "%10s %6s %f", command, key, &number) != 3)
 		{
-			printf("parsing error\n");
+			fprintf(stream, "parsing error\n");
 			return 0;
 		}
 		AddToTree(tree, key, number, &status);
-		printf("%s\n", status == 0 ? "element added" : "can't add duplicate");
+		fprintf(stream, "%s\n", status == 0 ? "element added" : "can't add duplicate");
 	}
 
 	else if (strcmp(command, "remove") == 0)
 	{
 		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
-			printf("parsing error\n");
+			fprintf(stream, "parsing error\n");
 			return 0;
 		}
 		RemoveFromTree(tree, key, &status);
-		printf("%s\n", status == 0 ? "element deleted" : "404 :(");
+		fprintf(stream, "%s\n", status == 0 ? "element deleted" : "404 :(");
 	}
 
 	else if (strcmp(command, "print") == 0)
 	{
-		PrintTree(tree);
+		PrintTree(tree, stream);
 	}
 
 	else if (strcmp(command, "search") == 0)
 	{
 		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
-			printf("parsing error\n");
+			fprintf(stream, "parsing error\n");
 			return 0;
 		}
 		float result = SearchInTree(tree, key, &status);
 		if (status == 0)
 		{
-			printf("found result: Node(key = %s, number = %f)\n", key, result);
+			fprintf(stream, "found result: Node(key = %s, number = %f)\n", key, result);
 		}
-		else printf("404 :(\n");
+		else fprintf(stream, "404 :(\n");
 	}
 
 	else if (strcmp(command, "exit") == 0)
@@ -122,16 +122,16 @@ int ExecuteCommand(Tree* tree, const char* input) {
 	
 	else if (strcmp(command, "help") == 0)
 	{
-		printf("avaliable commands:\n");
-		printf("    add [key] [float number]\n");
-		printf("    remove [key]\n");
-		printf("    print\n");
-		printf("    search [key]\n");
-		printf("    exit\n");
+		fprintf(stream, "avaliable commands:\n");
+		fprintf(stream, "    add [key] [float number]\n");
+		fprintf(stream, "    remove [key]\n");
+		fprintf(stream, "    print\n");
+		fprintf(stream, "    search [key]\n");
+		fprintf(stream, "    exit\n");
 	}
 
 	else
-		printf("unknown command\n");
+		fprintf(stream, "unknown command\n");
 
 	return 0;
 }
