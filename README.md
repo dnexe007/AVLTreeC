@@ -5,7 +5,7 @@
 * Visual Studio 2022 c инструментами разработки на C++
 ## Запуск
 1. Открыть проект в Visual Studio
-1. В Visual studio открыть developer prompt по комбинации (CTRL + \`)
+1. В Visual studio открыть developer prompt (комбинация CTRL + \`)
 3. Запуск программы - `nmake run`
 4. Запуск тестов - `nmake test`
 ## Поддерживаемые операции
