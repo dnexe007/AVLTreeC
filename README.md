@@ -6,6 +6,7 @@
 ## Запуск
 1. Открыть проект в Visual Studio
 1. В Visual studio открыть developer prompt (комбинация CTRL + \`)
+2. Переместиться в подпапку - `cd AVLTreeC`
 3. Запуск программы - `nmake run`
 4. Запуск тестов - `nmake test`
 ## Поддерживаемые операции
