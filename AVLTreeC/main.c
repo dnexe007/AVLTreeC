@@ -15,7 +15,8 @@ int main() {
 		printf("enter command: ");
 		fgets(buffer, 255, stdin);
 
-		ExecuteCommand(tree, buffer);
+		if (ExecuteCommand(tree, buffer) == 1)
+			break;
 	}
 
 	return 0;

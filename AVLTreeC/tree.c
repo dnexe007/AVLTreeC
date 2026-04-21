@@ -60,7 +60,7 @@ void PrintTree(Tree* tree) {
 	PrintNodes(tree->root, 0);
 }
 
-void ExecuteCommand(Tree* tree, const char* input) {
+int ExecuteCommand(Tree* tree, const char* input) {
 	char command[11];
 	char key[7];
 	float number;
@@ -69,7 +69,7 @@ void ExecuteCommand(Tree* tree, const char* input) {
 	if (sscanf(input, "%10s", command) == 0)
 	{
 		printf("parsing error\n");
-		return;
+		return 0;
 	}
 
 	if (strcmp(command, "add") == 0)
@@ -77,7 +77,7 @@ void ExecuteCommand(Tree* tree, const char* input) {
 		if (sscanf(input, "%10s %6s %f", command, key, &number) != 3)
 		{
 			printf("parsing error\n");
-			return;
+			return 0;
 		}
 		AddToTree(tree, key, number, &status);
 		printf("%s\n", status == 0 ? "element added" : "can't add duplicate");
@@ -87,27 +87,29 @@ void ExecuteCommand(Tree* tree, const char* input) {
 	{
 		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
-			printf("Parsing error\n");
-			return;
+			printf("parsing error\n");
+			return 0;
 		}
 		RemoveFromTree(tree, key, &status);
 		printf("%s\n", status == 0 ? "element deleted" : "404 :(");
 	}
 
 	else if (strcmp(command, "print") == 0)
+	{
 		PrintTree(tree);
+	}
 
 	else if (strcmp(command, "search") == 0)
 	{
 		if (sscanf(input, "%10s %6s", command, key) != 2)
 		{
-			printf("Parsing error\n");
-			return;
+			printf("parsing error\n");
+			return 0;
 		}
 		float result = SearchInTree(tree, key, &status);
 		if (status == 0)
 		{
-			printf("Found result: Node(key = %s, number = %f)\n", key, result);
+			printf("found result: Node(key = %s, number = %f)\n", key, result);
 		}
 		else printf("404 :(\n");
 	}
@@ -115,7 +117,7 @@ void ExecuteCommand(Tree* tree, const char* input) {
 	else if (strcmp(command, "exit") == 0)
 	{
 		DestroyTree(tree);
-		exit(0);
+		return 1;
 	}
 	
 	else if (strcmp(command, "help") == 0)
@@ -124,11 +126,13 @@ void ExecuteCommand(Tree* tree, const char* input) {
 		printf("    add [key] [float number]\n");
 		printf("    remove [key]\n");
 		printf("    print\n");
-		printf("    serach [key]\n");
+		printf("    search [key]\n");
 		printf("    exit\n");
 	}
 
 	else
 		printf("unknown command\n");
+
+	return 0;
 }
 

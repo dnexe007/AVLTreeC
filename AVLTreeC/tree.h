@@ -21,6 +21,6 @@ Tree* NewTree();
 
 void PrintTree(Tree* tree);
 
-void ExecuteCommand(Tree* tree, const char* command);
+int ExecuteCommand(Tree* tree, const char* command);
 
 #endif
